@@ -1,0 +1,352 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Orbitron:wght@400..900&display=swap');
+
+/* Variables globales */
+:root {
+    /* Colores */
+    --color-secondary-grey: #d1d5db;
+    --color-secondary-dark-purple: #392f40;
+    --color-lettering-black: #414347;
+    --color-shadow: rgba(23, 23, 23, 0.5);
+
+    /* Mis tipografias escogidas */
+    --font-body: 'Montserrat', sans-serif;
+    --font-header: 'Orbitron', sans-serif;
+
+    /* Variables globales que quiero guardar */
+    --spacing: 10px;
+    --border-radius: 10px;
+
+    --header-height: 100px;
+    --game-width: 40%;
+    --game-height: 500px;
+
+    --startship-size: 40px;
+    --earth-size: 35px
+}
+
+/* Reseteos globales */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* Header principal */
+header {
+    width: 100%;
+    height: var(--header-height);
+    background-color: var(--color-secondary-grey);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+header h1 {
+    font-family: var(--font-header);
+    color: var(--color-lettering-black);
+    font-weight: bold;
+}
+
+/* Ajustes del body */
+body {
+    background: url(assets/background/background1.png) center/cover no-repeat fixed;
+    font-family: var(--font-body);
+}
+
+/* Interfaz del juego */
+#gameInterface {
+    width: var(--game-width);
+    height: var(--game-height);
+    margin: 80px auto 0;
+    background-color: var(--color-secondary-grey);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: var(--border-radius);
+    box-shadow: 10px 10px 15px var(--color-shadow);
+    overflow: hidden;
+}
+
+/* Contenedor de las vidas de la nave y el número de Ronda */
+#gameInformation1 {
+    width: 90%;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing);
+}
+
+#startshipLifeContainer {
+    display: flex;
+    gap: var(--spacing);
+    list-style: none;
+}
+
+#startshipLifeContainer li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.startshipLife {
+    width: var(--startship-size);
+    height: auto;
+    object-fit: contain;
+}
+
+#roundCounter {
+    font-family: var(--font-header);
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: var(--color-lettering-black);
+}
+
+/* Contenedor del juego */
+#gameContainer {
+    flex-grow: 1;
+    height: 300px;
+    width: 90%;
+    background-color: var(--color-secondary-dark-purple);
+    border-radius: var(--border-radius);
+    position: relative; 
+    overflow: hidden;
+}
+
+/* Contenedor de las vidas de la Tierra */
+#gameInformation2 {
+    width: 90%;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#earthLifeContainer {
+    display: flex;
+    gap: var(--spacing);
+    list-style: none;
+}
+
+.earthLife {
+    width: var(--earth-size);
+    height: auto;
+    object-fit: contain;
+}
+
+/* Estilos para la nave del jugador */
+#naveJugador {
+    width: var(--startship-size);
+    height: var(--startship-size);
+    background: url('assets/png/playerShip2_orange.png') center/contain no-repeat;
+    position: absolute;
+    bottom: 10px; /* Para que inicie cerca de la parte inferior */
+    left: 50%; /* Inicialmente en el centro del contenedor */
+    transform: translateX(-50%); /* Compensa el ancho del elemento */
+}
+
+
+.asteroide {
+    width: 40px;
+    height: 40px;
+    background: url('assets/png/meteor.png') center/contain no-repeat;
+    position: absolute;
+}
+
+.proyectil {
+    width: 10px;
+    height: 15px;
+    background: url('assets/png/laser.png') center/contain no-repeat;
+    background-color: red;
+    position: absolute;
+}
+
+.botonInteractivo {
+    position: absolute; 
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    padding: 10px 20px; 
+    font-family: 'Orbitron', sans-serif; 
+    font-size: 1.2rem; 
+    color: white; 
+    background-color: var(--color-secondary-dark-purple); 
+    border: 2px solid var(--color-secondary-grey); 
+    border-radius: var(--border-radius); 
+    cursor: pointer; 
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.botonInteractivo:hover {
+    background-color: var(--color-secondary-grey); /* Cambio de color al pasar el mouse */
+    transform: translate(-50%, -50%) scale(1.05); /* Ligero aumento de tamaño */
+}
+
+.botonInteractivo:active {
+    background-color: var(--color-shadow); /* Color más oscuro al hacer clic */
+    transform: translate(-50%, -50%) scale(0.95); /* Ligera reducción al hacer clic */
+}
+
+/* Contenedor de introducción */
+#introContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 600px;
+    padding: 20px;
+    background-color: var(--color-secondary-grey);
+    color: var(--color-lettering-black);
+    border-radius: var(--border-radius);
+    text-align: center;
+    box-shadow: 0 5px 15px var(--color-shadow);
+    z-index: 10;
+    font-family: var(--font-body);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Texto introductorio */
+#introText {
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+/* Botón de inicio */
+#startButton {
+    padding: 10px 20px;
+    font-family: var(--font-header);
+    font-size: 1.2rem;
+    background-color: var(--color-secondary-dark-purple);
+    color: white;
+    border: 2px solid var(--color-secondary-grey);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#startButton:hover {
+    background-color: var(--color-secondary-grey);
+    transform: scale(1.05);
+}
+
+#startButton:active {
+    background-color: var(--color-shadow);
+    transform: scale(0.95);
+}
+
+#mensajeRonda {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--color-lettering-black);
+    font-family: var(--font-header);
+    font-size: 1rem;
+    background-color: var(--color-secondary-grey);
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    z-index: 100;
+}
+
+#finalMessageContainer {
+    width: 90%;
+    height: 100px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgba(255, 0, 0, 0.8); /* Prueba con un color rojo translúcido */
+    color: white;
+    font-size: 1.5rem;
+    z-index: 120;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+#finalMessageContainer p {
+    font-family: var(--font-header);
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 20px; /* Espaciado entre el mensaje y el botón */
+}
+
+#finalMessageContainer button {
+    width: 170px;
+    height: 40px;
+    padding: 10px 20px;
+    font-family: var(--font-header);
+    font-size: 0.8rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    color: white;
+    background-color: var(--color-secondary-dark-purple);
+    border: 2px solid var(--color-secondary-grey);
+}
+
+#finalMessageContainer button:hover {
+    background-color: var(--color-secondary-grey);
+    transform: scale(1.05);
+}
+
+#finalMessageContainer button:active {
+    background-color: var(--color-shadow);
+    transform: scale(0.95);
+}
+
+/* Media Query responsive para teléfonos, yo he puesto 800px ya que he redondeado la media de los tamaños que suele estar por los 750px */
+@media (max-width: 800px) {
+
+    :root {
+        --game-width: 95%;
+        --game-height: 700px;
+        --header-height: 80px;
+        --startship-size: 50px;
+        --earth-size: 40px;
+    }
+
+    header {
+        height: var(--header-height);
+    }
+
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    #gameInterface {
+        width: var(--game-width);
+        height: var(--game-height);
+        margin: 40px auto 0;
+    }
+
+    #gameInformation1 {
+        align-items: center;
+        gap: 5px;
+    }
+
+    #gameInformation1 ul {
+        justify-content: center;
+    }
+
+    #roundCounter {
+        font-size: 1rem;
+    }
+
+    #gameContainer {
+        width: 300px;
+        margin: 10px 0;
+    }
+
+    #earthLifeContainer {
+        gap: 5px;
+    }
+}
