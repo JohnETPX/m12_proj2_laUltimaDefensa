@@ -1,46 +1,40 @@
 window.addEventListener('load', () => {
     // Creamos un botón de inicio
-    textoIntroIniciador();
+    buttonIntroIniciador();
 });
 
 // Variable que dejo como global, para cambiar a True cuando el juego haya acabado según mis condiciones
 let gameOver = false;
 
-function textoIntroIniciador() {
-    // Seleccionamos el contenedor principal del juego
+function buttonIntroIniciador() {
     const gameContainer = document.getElementById('gameContainer');
+    const contextContainer = document.getElementById('contextContainer');
 
-    // Creamos un contenedor para la introducción
-    const introContainer = document.createElement('div');
-    introContainer.id = 'introContainer';
+    // Inicialmente ocultamos el contextContainer
+    contextContainer.classList.add('hidden');
 
-    // Añadimos el texto de introducción
-    const introText = document.createElement('p');
-    introText.id = 'introText';
-    introText.textContent = `
-    Eres el último astronauta, estás en el espacio exterior y debes salvar el planeta Tierra de una inminente lluvia de meteoritos. 
-    Sobrevive a tres oleadas de asteroides y destruyelos antes de que lleguen a la Tierra.
-    La nave cuenta con 3 vidas (marcado arriba en la izquierda).
-    La tierra cuenta con 3 vidas (marcado arriba en medio).
-    `;
+    const buttonContainer = document.createElement('div');
+    buttonContainer.id = 'buttonContainer';
 
-    // Creamos el botón de inicio
     const startButton = document.createElement('button');
     startButton.id = 'startButton';
     startButton.textContent = 'EMPEZAR';
 
-    // Agregamos un evento para iniciar el juego al hacer clic en el botón
     startButton.addEventListener('click', () => {
-        introContainer.remove(); // Eliminamos el contenedor de introducción
-        inicializarJuego(); // Llamamos a la función para iniciar el juego
+        // Eliminamos el contenedor del botón
+        buttonContainer.remove();
+
+        // Mostramos el contextContainer
+        contextContainer.style.display = 'none';
+
+        // Iniciamos el juego
+        inicializarJuego();
     });
 
-    // Añadimos el texto y el botón al contenedor de introducción
-    introContainer.appendChild(introText);
-    introContainer.appendChild(startButton);
-
-    // Añadimos el contenedor de introducción al gameContainer
-    gameContainer.appendChild(introContainer);
+    buttonContainer.appendChild(startButton);
+    contextContainer.appendChild(buttonContainer);
+    gameContainer.appendChild(contextContainer);
+    
 }
 
 /* ===================== Funciones principales del flujo del juego ===================== */
@@ -197,7 +191,7 @@ function moverNave(evento, naveJugador, gameContainer, velocidad) {
     if (gameOver) return; // Si el juego ha terminado, no hacer nada
 
     // Límites a donde puede llegar la nave
-    const limiteIzquierdo = 25; // Límite izquierdo
+    const limiteIzquierdo = 40; // Límite izquierdo
     const limiteDerecho = gameContainer.offsetWidth - naveJugador.offsetWidth; // Límite derecho
     const navePosicion = naveJugador.offsetLeft; // Posición de la nave
 
@@ -360,7 +354,7 @@ function actualizarVidasVisuales(contenedorId, vidasRestantes) {
     // Agarra la lista de li donde están gráficamente señalando las vidas y se quita ese li cuando se ejecuta la función
     const vidas = contenedor.querySelectorAll('li');
     for (let i = vidas.length - 1; i >= vidasRestantes; i--) {
-        vidas[i].remove();
+        vidas[i].style.zIndex = '-20';
     }
     gameContainer.style.outline = '4px solid red';
     setTimeout(() => {

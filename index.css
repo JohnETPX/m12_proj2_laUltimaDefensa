@@ -16,7 +16,7 @@
     --spacing: 10px;
     --border-radius: 10px;
 
-    --header-height: 100px;
+    --header-height: 70px;
     --game-width: 40%;
     --game-height: 500px;
 
@@ -24,10 +24,20 @@
     --earth-size: 35px
 }
 
+/* Oculta el contenedor contextContainer por defecto */
+.hidden {
+    display: none;
+}
+
+
 /* Reseteos globales */
 * {
     margin: 0;
     padding: 0;
+}
+
+main {
+    margin: 42px auto;
 }
 
 /* Header principal */
@@ -52,18 +62,70 @@ body {
     font-family: var(--font-body);
 }
 
+#contextContainer {
+    position: relative;
+    /* Asegura que siga el flujo normal del documento */
+    max-width: 80%;
+    /* Limita el ancho máximo */
+    padding: 20px;
+    background-color: var(--color-secondary-grey);
+    border-radius: var(--border-radius);
+    text-align: justify;
+    box-shadow: 0 5px 15px var(--color-shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    /* Espacio entre los elementos internos */
+    box-sizing: border-box;
+    /* Incluye padding y bordes en el cálculo del tamaño */
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+}
+
+.contextTextContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.contextTextContainer h3 {
+    padding: 2px;
+}
+
+.contextTextContainer img {
+    height: 30px;
+    padding-left: 2px;
+    margin: 5px;
+}
+
+.contextTextContainer p {
+    display: flex;
+    align-items: center;
+    font-size: 0.8rem;
+}
+
+
 /* Interfaz del juego */
 #gameInterface {
-    width: var(--game-width);
-    height: var(--game-height);
-    margin: 80px auto 0;
+    /* Ocupa también el 45% del ancho disponible */
+    max-width: 650px;
+    /* Limita el ancho máximo */
+    min-height: 580px;
     background-color: var(--color-secondary-grey);
+    border-radius: var(--border-radius);
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-radius: var(--border-radius);
-    box-shadow: 10px 10px 15px var(--color-shadow);
-    overflow: hidden;
+    padding: 10px;
+    /* Espacio interno */
+    gap: var(--spacing);
+    /* Espacio entre los elementos internos */
+    box-shadow: 0 5px 15px var(--color-shadow);
+    box-sizing: border-box;
+    /* Incluye padding y bordes en el cálculo del tamaño */
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Contenedor de las vidas de la nave y el número de Ronda */
@@ -108,7 +170,7 @@ body {
     width: 90%;
     background-color: var(--color-secondary-dark-purple);
     border-radius: var(--border-radius);
-    position: relative; 
+    position: relative;
     overflow: hidden;
 }
 
@@ -139,9 +201,12 @@ body {
     height: var(--startship-size);
     background: url('assets/png/playerShip2_orange.png') center/contain no-repeat;
     position: absolute;
-    bottom: 10px; /* Para que inicie cerca de la parte inferior */
-    left: 50%; /* Inicialmente en el centro del contenedor */
-    transform: translateX(-50%); /* Compensa el ancho del elemento */
+    bottom: 10px;
+    /* Para que inicie cerca de la parte inferior */
+    left: 50%;
+    /* Inicialmente en el centro del contenedor */
+    transform: translateX(-50%);
+    /* Compensa el ancho del elemento */
 }
 
 
@@ -161,49 +226,47 @@ body {
 }
 
 .botonInteractivo {
-    position: absolute; 
-    top: 50%; 
-    left: 50%;
-    transform: translate(-50%, -50%); 
-    padding: 10px 20px; 
-    font-family: 'Orbitron', sans-serif; 
-    font-size: 1.2rem; 
-    color: white; 
-    background-color: var(--color-secondary-dark-purple); 
-    border: 2px solid var(--color-secondary-grey); 
-    border-radius: var(--border-radius); 
-    cursor: pointer; 
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-.botonInteractivo:hover {
-    background-color: var(--color-secondary-grey); /* Cambio de color al pasar el mouse */
-    transform: translate(-50%, -50%) scale(1.05); /* Ligero aumento de tamaño */
-}
-
-.botonInteractivo:active {
-    background-color: var(--color-shadow); /* Color más oscuro al hacer clic */
-    transform: translate(-50%, -50%) scale(0.95); /* Ligera reducción al hacer clic */
-}
-
-/* Contenedor de introducción */
-#introContainer {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 80%;
-    max-width: 600px;
-    padding: 20px;
+    padding: 10px 20px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2rem;
+    color: white;
+    background-color: var(--color-secondary-dark-purple);
+    border: 2px solid var(--color-secondary-grey);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.botonInteractivo:hover {
     background-color: var(--color-secondary-grey);
+    /* Cambio de color al pasar el mouse */
+    transform: translate(-50%, -50%) scale(1.05);
+    /* Ligero aumento de tamaño */
+}
+
+.botonInteractivo:active {
+    background-color: var(--color-shadow);
+    /* Color más oscuro al hacer clic */
+    transform: translate(-50%, -50%) scale(0.95);
+    /* Ligera reducción al hacer clic */
+}
+
+/* Contenedor de introducción */
+#buttonContainer {
+    top: 50%;
+    left: 50%;
+    max-width: 600px;
     color: var(--color-lettering-black);
     border-radius: var(--border-radius);
     text-align: center;
-    box-shadow: 0 5px 15px var(--color-shadow);
     z-index: 10;
     font-family: var(--font-body);
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
     gap: 20px;
 }
@@ -219,16 +282,16 @@ body {
     padding: 10px 20px;
     font-family: var(--font-header);
     font-size: 1.2rem;
-    background-color: var(--color-secondary-dark-purple);
-    color: white;
-    border: 2px solid var(--color-secondary-grey);
+    background-color: green;
+    color: var(--color-secondary-grey);
+    border: 2px solid;
     border-radius: var(--border-radius);
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
 }
 
 #startButton:hover {
-    background-color: var(--color-secondary-grey);
+    background-color: green;
     transform: scale(1.05);
 }
 
@@ -253,7 +316,7 @@ body {
 }
 
 #finalMessageContainer {
-    width: 90%;
+    width: 80%;
     height: 100px;
     position: absolute;
     top: 50%;
@@ -263,7 +326,8 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: rgba(255, 0, 0, 0.8); /* Prueba con un color rojo translúcido */
+    background-color: rgba(255, 0, 0, 0.8);
+    /* Prueba con un color rojo translúcido */
     color: white;
     font-size: 1.5rem;
     z-index: 120;
@@ -276,7 +340,8 @@ body {
     font-family: var(--font-header);
     font-size: 1rem;
     font-weight: bold;
-    margin-bottom: 20px; /* Espaciado entre el mensaje y el botón */
+    margin-bottom: 10px;
+    /* Espaciado entre el mensaje y el botón */
 }
 
 #finalMessageContainer button {
@@ -308,10 +373,14 @@ body {
 
     :root {
         --game-width: 95%;
-        --game-height: 700px;
+        --game-height: 800px;
         --header-height: 80px;
         --startship-size: 50px;
         --earth-size: 40px;
+    }
+
+    main {
+        flex-direction: column;
     }
 
     header {
@@ -322,19 +391,41 @@ body {
         font-size: 1.5rem;
     }
 
+    .contextTextContainer p {
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
     #gameInterface {
         width: var(--game-width);
         height: var(--game-height);
         margin: 40px auto 0;
+        flex: none;
+        max-width: none;
+        padding: 5px;
+    }
+
+    #contextContainer {
+        width: var(--game-width);
+        /* height: var(--game-height); */
+        margin: 40px auto 0;
+        flex: none;
+        max-width: none;
     }
 
     #gameInformation1 {
         align-items: center;
         gap: 5px;
+        max-height: max-content;
     }
 
     #gameInformation1 ul {
         justify-content: center;
+    }
+
+    #gameInformation2 {
+        max-height: max-content;
     }
 
     #roundCounter {
@@ -342,7 +433,7 @@ body {
     }
 
     #gameContainer {
-        width: 300px;
+        width: 90%;
         margin: 10px 0;
     }
 
