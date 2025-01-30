@@ -1,17 +1,14 @@
 window.addEventListener('load', () => {
     // Creamos un botón de inicio
-    buttonIntroIniciador();
+    introduction();
 });
 
 // Variable que dejo como global, para cambiar a True cuando el juego haya acabado según mis condiciones
 let gameOver = false;
 
-function buttonIntroIniciador() {
+function introduction() {
     const gameContainer = document.getElementById('gameContainer');
     const contextContainer = document.getElementById('contextContainer');
-
-    // Inicialmente ocultamos el contextContainer
-    contextContainer.classList.add('hidden');
 
     const buttonContainer = document.createElement('div');
     buttonContainer.id = 'buttonContainer';
@@ -19,6 +16,10 @@ function buttonIntroIniciador() {
     const startButton = document.createElement('button');
     startButton.id = 'startButton';
     startButton.textContent = 'EMPEZAR';
+
+    buttonContainer.appendChild(startButton);
+    contextContainer.appendChild(buttonContainer);
+    gameContainer.appendChild(contextContainer);
 
     startButton.addEventListener('click', () => {
         // Eliminamos el contenedor del botón
@@ -30,11 +31,6 @@ function buttonIntroIniciador() {
         // Iniciamos el juego
         inicializarJuego();
     });
-
-    buttonContainer.appendChild(startButton);
-    contextContainer.appendChild(buttonContainer);
-    gameContainer.appendChild(contextContainer);
-    
 }
 
 /* ===================== Funciones principales del flujo del juego ===================== */
@@ -168,31 +164,14 @@ function generarAsteroidesPorRonda(ronda, gameContainer, nave, tierra, callback,
 
 /* ===================== Funciones relacionadas con elementos interactivos del juego ===================== */
 
-// Función que muestra un botón para reiniciar el juego.
-function mostrarBotonReiniciar(mensaje) {
-    const gameContainer = document.getElementById('gameContainer');
-
-    const botonReiniciar = document.createElement('button');
-    botonReiniciar.classList.add('botonInteractivo');
-    botonReiniciar.textContent = mensaje;
-    // Reinicia la página al hacer clic en el botón
-    botonReiniciar.addEventListener('click', () => {
-        // Reiniciamos la página para empezar de nuevo
-        location.reload();
-    });
-
-    // Añadimos el botón al contenedor
-    gameContainer.appendChild(botonReiniciar);
-}
-
 // Función que controla el movimiento de la nave
 function moverNave(evento, naveJugador, gameContainer, velocidad) {
 
     if (gameOver) return; // Si el juego ha terminado, no hacer nada
 
     // Límites a donde puede llegar la nave
-    const limiteIzquierdo = 40; // Límite izquierdo
-    const limiteDerecho = gameContainer.offsetWidth - naveJugador.offsetWidth; // Límite derecho
+    const limiteIzquierdo = 50; // Límite izquierdo
+    const limiteDerecho = gameContainer.offsetWidth - naveJugador.offsetWidth - 18; // Límite derecho
     const navePosicion = naveJugador.offsetLeft; // Posición de la nave
 
     // Mover hacia la izquierda
@@ -412,15 +391,15 @@ function mostrarMensajeFinal(tipo, mensaje) {
     restartButton.id = 'restartButton';
     restartButton.textContent = 'Reiniciar partida';
 
-    // Evento para recargar la página
-    restartButton.addEventListener('click', () => {
-        location.reload();
-    });
-
     // Agrega el mensaje y el botón al contenedor
     finalMessageContainer.appendChild(finalMessage);
     finalMessageContainer.appendChild(restartButton);
 
     // Agrega el contenedor al gameContainer
     gameContainer.appendChild(finalMessageContainer);
-}
+
+        // Evento para recargar la página
+        restartButton.addEventListener('click', () => {
+            location.reload();
+        });
+};

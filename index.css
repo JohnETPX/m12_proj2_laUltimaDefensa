@@ -167,7 +167,7 @@ body {
 #gameContainer {
     flex-grow: 1;
     height: 300px;
-    width: 90%;
+    width: 600px;
     background-color: var(--color-secondary-dark-purple);
     border-radius: var(--border-radius);
     position: relative;
